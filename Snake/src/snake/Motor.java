@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Motor implements KeyListener{
     
     public Point culebrita;
-    //public ArrayList<Point> viborita;
+    //public Point[] viborita;
+    //public int largo;
     public Point comida;
     public Dimension size;
     public String last;
@@ -23,12 +24,14 @@ public class Motor implements KeyListener{
     {
         this.size = size;
         last="der";
-        //viborita = new ArrayList<>();
-        //viborita.add(new Point(0,0));
+        //vivorita = new Point[20];
+        //largo = 1;
+        //vivorita = new Point(0,0);
         culebrita = new Point(0, 0);
         comida = new Point(5*20, 5*20);
-        Thread t1 = new Thread(new Runnable() {
-
+        Thread t1;
+        t1 = new Thread(new Runnable() {
+            
             @Override
             public void run() {
                 int counter=0;
@@ -43,10 +46,10 @@ public class Motor implements KeyListener{
                     try{
                         Thread.sleep(speed);
                     } catch(Exception e){}
-                    if (last == "der") moverDer();
-                    if (last == "izq") moverIzq();
-                    if (last == "aba") moverAba();
-                    if (last == "arr") moverArr();
+                    if ("der".equals(last)) moverDer();
+                    if ("izq".equals(last)) moverIzq();
+                    if ("aba".equals(last)) moverAba();
+                    if ("arr".equals(last)) moverArr();
                     hayComida();
                 }
             }

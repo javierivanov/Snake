@@ -59,9 +59,9 @@ public class Panel extends JPanel{
     public void pintarViborita(Graphics g)
     {
         g.setColor(Color.yellow);
-        for (int i=0; i < m.viborita.size(); i++)
+        for (int i=0; i < m.largo; i++)
         {
-            g.fillRect(m.viborita.get(i).x, m.viborita.get(i).y, 20, 20);
+            g.fillRect(m.viborita[i].x, m.viborita[i].y, 20, 20);
         }
     }
     */
