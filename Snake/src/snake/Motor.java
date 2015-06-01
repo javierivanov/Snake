@@ -54,6 +54,11 @@ public class Motor implements KeyListener{
         t1.start();
     }
     
+    public boolean estaViva()
+    {
+        return true;
+    }
+    
     public boolean hayComida()
     {
         if (culebrita.x == comida.x && culebrita.y == comida.y)
