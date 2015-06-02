@@ -98,7 +98,7 @@ public class Panel extends JPanel{
 class DeadAnimation
 {
     public int dead=0;
-    public Dimension dim;
+    public final Dimension dim;
     public DeadAnimation(Dimension size)
     {
         dim = size;
@@ -106,7 +106,7 @@ class DeadAnimation
 
             @Override
             public void run() {
-                while (dead < size.height)
+                while (dead < dim.height)
                 {
                     try{
                         Thread.sleep((int)(Math.random()*5));
