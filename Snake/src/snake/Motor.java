@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
 
 /**
@@ -20,10 +19,11 @@ public class Motor implements KeyListener{
     public Dimension size;
     public String last;
     private int speed = 500;
-    public int psize = 20;
-    public Motor(Dimension size)
+    public int psize;
+    public Motor(Dimension size, int psize)
     {
         this.size = size;
+        this.psize = psize;
         last="der";
         //vivorita = new Point[20];
         //largo = 1;

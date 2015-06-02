@@ -34,11 +34,11 @@ public class Panel extends JPanel{
         g.setColor(Color.black);
         g.fillRect(0,0 , getSize().width, getSize().height);
         g.setColor(Color.white);
-        for (int i=20; i < getSize().width; i+=m.psize)
+        for (int i=m.psize; i < getSize().width; i+=m.psize)
         {
             g.drawLine(i, 0, i, getSize().height);
         }
-        for (int i=20; i < getSize().height; i+=m.psize)
+        for (int i=m.psize; i < getSize().height; i+=m.psize)
         {
             g.drawLine(0, i, getSize().width, i);
         }
