@@ -88,7 +88,7 @@ public class Panel extends JPanel{
         }
         if (m.pause)
         {
-            g.setColor(new Color(100, 100, 100, 200));
+            g.setColor(new Color(50, 100, 100, 210));
             g.fillRect(0, 0, m.size.width, m.size.height);
         }
     }
