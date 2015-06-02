@@ -63,6 +63,11 @@ public class Motor implements KeyListener{
         return true;
     }
 
+    public void nuevoElemento()
+    {
+        
+    }
+    
     public boolean hayComida()
     {
         if (culebrita.x == comida.x && culebrita.y == comida.y)
