@@ -19,6 +19,7 @@ public class Ventana extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         addKeyListener(m);
         setLocationRelativeTo(null);
+        //setUndecorated(true);
         setVisible(true);
     }
 }
