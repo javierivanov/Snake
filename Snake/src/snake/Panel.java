@@ -28,44 +28,44 @@ public class Panel extends JPanel{
         });
         t1.start();
     }
-    
+
     public void pintarFondo(Graphics g)
     {
         g.setColor(Color.black);
         g.fillRect(0,0 , getSize().width, getSize().height);
         g.setColor(Color.white);
-        for (int i=20; i < getSize().width; i+=20)
+        for (int i=20; i < getSize().width; i+=m.psize)
         {
             g.drawLine(i, 0, i, getSize().height);
         }
-        for (int i=20; i < getSize().height; i+=20)
+        for (int i=20; i < getSize().height; i+=m.psize)
         {
             g.drawLine(0, i, getSize().width, i);
         }
     }
-    
+
     public void pintarPunto(Graphics g)
     {
         g.setColor(Color.green);
-        g.fillRect(m.culebrita.x, m.culebrita.y, 20, 20);
+        g.fillRect(m.culebrita.x, m.culebrita.y, m.psize, m.psize);
     }
     public void pintarComida(Graphics g)
     {
         g.setColor(Color.red);
-        g.fillRect(m.comida.x, m.comida.y, 20, 20);
+        g.fillRect(m.comida.x, m.comida.y, m.psize, m.psize);
     }
-    
+
     /*
     public void pintarViborita(Graphics g)
     {
         g.setColor(Color.yellow);
         for (int i=0; i < m.largo; i++)
         {
-            g.fillRect(m.viborita[i].x, m.viborita[i].y, 20, 20);
+            g.fillRect(m.viborita[i].x, m.viborita[i].y, m.psize, m.psize);
         }
     }
     */
-    
+
     @Override
     public void paintComponent(Graphics g)
     {
