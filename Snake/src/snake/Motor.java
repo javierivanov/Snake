@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author javier
  */
 public class Motor implements KeyListener{
-    
+
     public Point culebrita;
     //public Point[] viborita;
     //public int largo;
@@ -20,6 +20,7 @@ public class Motor implements KeyListener{
     public Dimension size;
     public String last;
     private int speed = 500;
+    public int psize = 20;
     public Motor(Dimension size)
     {
         this.size = size;
@@ -28,16 +29,16 @@ public class Motor implements KeyListener{
         //largo = 1;
         //vivorita = new Point(0,0);
         culebrita = new Point(0, 0);
-        comida = new Point(5*20, 5*20);
+        comida = new Point(5*psize, 5*psize);
         Thread t1;
         t1 = new Thread(new Runnable() {
-            
+
             @Override
             public void run() {
                 int counter=0;
                 while(true)
                 {
-                    if (counter++ == 4) 
+                    if (counter++ == 4)
                     {
                         counter=0;
                         speed-=10;
@@ -56,49 +57,49 @@ public class Motor implements KeyListener{
         });
         t1.start();
     }
-    
+
     public boolean estaViva()
     {
         return true;
     }
-    
+
     public boolean hayComida()
     {
         if (culebrita.x == comida.x && culebrita.y == comida.y)
         {
-            comida.y = (int)(Math.random()*size.height/20-1)*20;
-            comida.x = (int)(Math.random()*size.width/20-1)*20;
+            comida.y = (int)(Math.random()*size.height/psize)*psize;
+            comida.x = (int)(Math.random()*size.width/psize)*psize;
             return true;
         }
         return false;
     }
-    
+
     public void moverIzq()
     {
-        culebrita.x-=20;
+        culebrita.x-=psize;
     }
-    
+
     public void moverDer()
     {
-        
-        culebrita.x+=20;
+
+        culebrita.x+=psize;
     }
-    
+
     public void moverArr()
     {
-        culebrita.y-=20;
+        culebrita.y-=psize;
     }
-    
+
     public void moverAba()
     {
-        culebrita.y+=20;
+        culebrita.y+=psize;
     }
-    
-    
-    
+
+
+
     @Override
     public void keyTyped(KeyEvent e) {
-        
+
     }
 
     @Override
@@ -111,7 +112,7 @@ public class Motor implements KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
+
     }
-    
+
 }
