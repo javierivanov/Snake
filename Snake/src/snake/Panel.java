@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 
 public class Panel extends JPanel{
-    private Motor m;
+    private final Motor m;
     public DeadAnimation dA;
     public Dimension size;
     public Panel(Motor m, Dimension size)
@@ -17,6 +17,10 @@ public class Panel extends JPanel{
         this.m = m;
         this.size = size;
         setSize(size.width, size.height+20);
+        init();
+    }
+    
+    private void init(){
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -32,6 +36,7 @@ public class Panel extends JPanel{
         });
         t1.start();
     }
+    
 
     public void pintarFondo(Graphics g)
     {
@@ -108,6 +113,10 @@ class DeadAnimation
     {
         this.m2 = m;
         dim = size;
+        init();
+    }
+    
+    private void init(){
         Thread t = new Thread(new Runnable() {
 
             @Override
