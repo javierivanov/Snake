@@ -20,20 +20,23 @@ public class Motor implements KeyListener{
     public int speed = 60;
     public int psize;
     public Point cola;
-    public boolean alive = true;
-    public boolean pause = false;
-    private boolean moved=true;
+    public boolean alive;
+    public boolean pause;
+    private boolean moved;
     public int score;
     public Motor(Dimension size, int psize)
     {
         this.size = size;
         this.psize = psize;
-        this.score = 0;
         init();
     }
 
     public void init()
     {
+        this.score = 0;
+        this.alive=true;
+        this.pause=false;
+        this.moved=true;
         this.last="der";
         this.viborita = new Point[1000];
         this.largo = 2;

@@ -71,7 +71,7 @@ public class Panel extends JPanel{
         g.setColor(Color.gray);
         g.fillRect(0, size.height, size.width, getSize().height);
         g.setColor(Color.white);
-        g.drawString("duudee, your speeed is: " + 1000/m.speed + ", and your score is:" + m.score, 5, getSize().height-5);
+        g.drawString("Duudee, your speeed is: " + 1000/m.speed + ", and your score is:" + m.score, 5, getSize().height-5);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Panel extends JPanel{
         {
             if (dA == null)
             {
-                dA = new DeadAnimation(getSize());
+                dA = new DeadAnimation(getSize(), m);
             }
             dA.pintarMuerte(g);
         }
@@ -103,8 +103,10 @@ class DeadAnimation
 {
     public int dead=0;
     public final Dimension dim;
-    public DeadAnimation(Dimension size)
+    public final Motor m2;
+    public DeadAnimation(Dimension size, Motor m)
     {
+        this.m2 = m;
         dim = size;
         Thread t = new Thread(new Runnable() {
 
@@ -118,7 +120,7 @@ class DeadAnimation
                     dead++;
                 }
                 JOptionPane.showMessageDialog(null, "Perdiste!!!!");
-                System.exit(0);
+                m2.init();
             }
         });
         t.start();
