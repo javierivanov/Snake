@@ -13,7 +13,6 @@ import java.util.Arrays;
  */
 public class Motor implements KeyListener{
 
-    public Point culebrita;
     public Point[] viborita;
     public int largo;
     public Point comida;
@@ -35,14 +34,12 @@ public class Motor implements KeyListener{
         viborita[1] = new Point(0, 0);
         viborita[0] = new Point(psize,0);
         cola = viborita[1];
-        culebrita = new Point(0, 0);
         comida = new Point(5*psize, 5*psize);
         Thread t1;
         t1 = new Thread(new Runnable() {
 
             @Override
             public void run() {
-                int counter=0;
                 while(alive)
                 {
                     try{
@@ -159,7 +156,7 @@ public class Motor implements KeyListener{
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             if (moved)
-                if (last != "aba"){
+                if (!"aba".equals(last)){
                     last = "arr";
                     moved = false;
                 }
@@ -167,21 +164,21 @@ public class Motor implements KeyListener{
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             if (moved)
-                if (last != "arr") {
+                if (!"arr".equals(last)) {
                     last = "aba";
                     moved = false;
                 }
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             if (moved)
-                if (last != "der") {
+                if (!"der".equals(last)) {
                     last = "izq";
                     moved = false;
                 }
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if (moved)
-                if(last != "izq") {
+                if(!"izq".equals(last)) {
                     last = "der";
                     moved = false;
                 }
