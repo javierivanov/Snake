@@ -13,14 +13,14 @@ public class Ventana extends JFrame{
     public Ventana(Motor m)
     {
         super("Snake!");
-        setSize(m.size.width, m.size.height+50);
+        setSize(m.size.width, m.size.height+20);
         setLayout(null);
         add(new Panel(m, m.size));
         this.m = m;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         addKeyListener(m);
         setLocationRelativeTo(null);
-        //setUndecorated(true);
+        setUndecorated(true);
         JOptionPane.showMessageDialog(null, "Para pausar presione (P), para Salir (Q)");
 
         setVisible(true);

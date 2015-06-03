@@ -135,7 +135,7 @@ public class Motor implements KeyListener{
         if (viborita[0].x == comida.x && viborita[0].y == comida.y)
         {
             nuevoElemento();
-            score+=(largo)*(Math.log(100/speed));
+            score+=largo*Math.pow(1.5, 120.0/speed);
             while (true)
             {
                 comida.y = (int)(Math.random()*(size.height/psize-1))*psize;
@@ -193,7 +193,7 @@ public class Motor implements KeyListener{
                 }
         }
         if (e.getKeyCode() == KeyEvent.VK_M){
-            if (speed > 30){
+            if (speed > 20){
                 speed-=10;
             }
         }

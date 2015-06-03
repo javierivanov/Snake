@@ -76,7 +76,7 @@ public class Panel extends JPanel{
         g.setColor(Color.gray);
         g.fillRect(0, size.height, size.width, getSize().height);
         g.setColor(Color.white);
-        g.drawString("Duudee, your speeed is: " + 1000/m.speed + ", and your score is:" + m.score, 5, getSize().height-5);
+        g.drawString("Duudee, your speeed is: " + (float)(120.0/m.speed) + ", and your score is:" + m.score, 5, getSize().height-5);
     }
 
     @Override
