@@ -11,7 +11,7 @@ public class Snake {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        Motor m = new Motor(new Dimension(500, 500), 20);
+        Motor m = new Motor(new Dimension(800, 800), 40);
         new Ventana(m);
     }
     
