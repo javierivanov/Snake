@@ -11,10 +11,12 @@ import javax.swing.JPanel;
 public class Panel extends JPanel{
     private Motor m;
     public DeadAnimation dA;
+    public Dimension size;
     public Panel(Motor m, Dimension size)
     {
         this.m = m;
-        setSize(size);
+        this.size = size;
+        setSize(size.width, size.height+20);
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -22,7 +24,7 @@ public class Panel extends JPanel{
                 {
                     repaint();
                     try{
-                        Thread.sleep(20);
+                        Thread.sleep(10);
                     } catch(Exception ex)
                     {}
                 }
@@ -35,22 +37,17 @@ public class Panel extends JPanel{
     {
         g.setColor(Color.black);
         g.fillRect(0,0 , getSize().width, getSize().height);
-        g.setColor(Color.white);
-        for (int i=m.psize; i < getSize().width; i+=m.psize)
+        g.setColor(Color.gray);
+        for (int i=m.psize; i < size.width; i+=m.psize)
         {
-            g.drawLine(i, 0, i, getSize().height);
+            g.drawLine(i, 0, i, size.height);
         }
-        for (int i=m.psize; i < getSize().height; i+=m.psize)
+        for (int i=m.psize; i < size.height; i+=m.psize)
         {
-            g.drawLine(0, i, getSize().width, i);
+            g.drawLine(0, i, size.width, i);
         }
     }
 
-    public void pintarPunto(Graphics g)
-    {
-        g.setColor(Color.green);
-        g.fillRect(m.culebrita.x, m.culebrita.y, m.psize, m.psize);
-    }
     public void pintarComida(Graphics g)
     {
         g.setColor(Color.red);
@@ -60,15 +57,22 @@ public class Panel extends JPanel{
     
     public void pintarViborita(Graphics g)
     {
-        
-        for (int i=0; i < m.largo; i++)
+        g.setColor(Color.green);
+        g.fillRect(m.viborita[0].x, m.viborita[0].y, m.psize, m.psize);
+        for (int i=1; i < m.largo; i++)
         {
-            
-            g.setColor(new Color(255-i/2,255-i*3, 255-i*2));
+            g.setColor(new Color(200-i,255-i*3, 255-i*2));
             g.fillRect(m.viborita[i].x, m.viborita[i].y, m.psize, m.psize);
         }
     }
-
+    
+    public void pintarBarra(Graphics g)
+    {
+        g.setColor(Color.gray);
+        g.fillRect(0, size.height, size.width, getSize().height);
+        g.setColor(Color.white);
+        g.drawString("duudee, your speeed is: " + 1000/m.speed, 5, getSize().height-5);
+    }
 
     @Override
     public void paintComponent(Graphics g)
@@ -76,8 +80,8 @@ public class Panel extends JPanel{
         super.paintComponent(g);
         pintarFondo(g);
         pintarComida(g);
-        //pintarPunto(g);
         pintarViborita(g);
+        pintarBarra(g);
         if (!m.alive)
         {
             if (dA == null)

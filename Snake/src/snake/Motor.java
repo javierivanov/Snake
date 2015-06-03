@@ -19,11 +19,12 @@ public class Motor implements KeyListener{
     public Point comida;
     public Dimension size;
     public String last;
-    private int speed = 500;
+    public int speed = 100;
     public int psize;
     public Point cola;
     public boolean alive = true;
     public boolean pause = false;
+    private boolean moved=true;
     public Motor(Dimension size, int psize)
     {
         this.size = size;
@@ -44,20 +45,14 @@ public class Motor implements KeyListener{
                 int counter=0;
                 while(alive)
                 {
-                    
                     try{
                         Thread.sleep(speed);
                     } catch(Exception e){}
                     if (!pause)
                     {
-                        if (counter++ == 4)
-                        {
-                            counter=0;
-                            speed-=50;
-                        }
-                        if (speed<70) speed=70;
                         mover();
-                        estaViva();
+                        moved = true;
+                        alive = estaViva();
                         hayComida();
                     }
                 }
@@ -68,7 +63,15 @@ public class Motor implements KeyListener{
 
     public boolean estaViva()
     {
-        return false;
+        
+        for (int i=1; i < largo; i++)
+        {
+            if (viborita[0].equals(viborita[i]))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void mover()
@@ -81,19 +84,37 @@ public class Motor implements KeyListener{
         
         if ("der".equals(last))
         {
-            viborita[0] = new Point(viborita[0].x+psize, viborita[0].y);
+            if (viborita[0].x == size.width-psize)
+            {
+                viborita[0] = new Point(0, viborita[0].y);
+            } else {
+                viborita[0] = new Point(viborita[0].x+psize, viborita[0].y);
+            }
         }
         if ("izq".equals(last))
         {
-            viborita[0] = new Point(viborita[0].x-psize, viborita[0].y);
+            if (viborita[0].x == 0){
+                viborita[0] = new Point(size.width-psize, viborita[0].y);
+            } else {
+                viborita[0] = new Point(viborita[0].x-psize, viborita[0].y);
+            }
         }
         if ("aba".equals(last))
         {
-            viborita[0] = new Point(viborita[0].x, viborita[0].y+psize);
+            if (viborita[0].y == size.height-psize){
+                viborita[0] = new Point(viborita[0].x, 0);
+            } else {
+                viborita[0] = new Point(viborita[0].x, viborita[0].y+psize);
+            }
         }
         if ("arr".equals(last))
         {
-            viborita[0] = new Point(viborita[0].x, viborita[0].y-psize);
+            if (viborita[0].y == 0){
+                viborita[0] = new Point(viborita[0].x, size.height-psize);
+            } else {
+                viborita[0] = new Point(viborita[0].x, viborita[0].y-psize);
+            }
+            
         }
         
     }
@@ -136,10 +157,45 @@ public class Motor implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP) last = "arr";
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) last = "aba";
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) last = "izq";
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) last = "der";
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            if (moved)
+                if (last != "aba"){
+                    last = "arr";
+                    moved = false;
+                }
+                
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (moved)
+                if (last != "arr") {
+                    last = "aba";
+                    moved = false;
+                }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            if (moved)
+                if (last != "der") {
+                    last = "izq";
+                    moved = false;
+                }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            if (moved)
+                if(last != "izq") {
+                    last = "der";
+                    moved = false;
+                }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_M){
+            if (speed > 30){
+                speed-=10;
+            }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_N) {
+            if (speed < 60){
+                speed+=10;
+            }
+        }
         if (e.getKeyCode() == KeyEvent.VK_P) pause = !pause;
         if (e.getKeyCode() == KeyEvent.VK_Q) System.exit(0);
     }
