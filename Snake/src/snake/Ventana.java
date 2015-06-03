@@ -20,13 +20,9 @@ public class Ventana extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         addKeyListener(m);
         setLocationRelativeTo(null);
-<<<<<<< HEAD
-        //setUndecorated(true);
-=======
         setUndecorated(true);
         JOptionPane.showMessageDialog(null, "Para pausar presione (P), para Salir (Q)");
-        
->>>>>>> full_snake
+
         setVisible(true);
     }
 }
