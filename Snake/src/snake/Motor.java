@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
 
 
 /**
@@ -18,25 +17,32 @@ public class Motor implements KeyListener{
     public Point comida;
     public Dimension size;
     public String last;
-    public int speed = 100;
+    public int speed = 60;
     public int psize;
     public Point cola;
     public boolean alive = true;
     public boolean pause = false;
     private boolean moved=true;
+    public int score;
     public Motor(Dimension size, int psize)
     {
         this.size = size;
         this.psize = psize;
-        last="der";
-        viborita = new Point[150];
-        largo = 2;
-        viborita[1] = new Point(0, 0);
-        viborita[0] = new Point(psize,0);
-        cola = viborita[1];
-        comida = new Point(5*psize, 5*psize);
-        Thread t1;
-        t1 = new Thread(new Runnable() {
+        this.score = 0;
+        init();
+    }
+
+    public void init()
+    {
+        this.last="der";
+        this.viborita = new Point[1000];
+        this.largo = 2;
+        this.viborita[1] = new Point(0, 0);
+        this.viborita[0] = new Point(psize,0);
+        this.cola = viborita[1];
+        this.comida = new Point(5*psize, 5*psize);
+        Thread t;
+        t = new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -55,12 +61,12 @@ public class Motor implements KeyListener{
                 }
             }
         });
-        t1.start();
+        t.start();
     }
-
+    
+    
     public boolean estaViva()
     {
-        
         for (int i=1; i < largo; i++)
         {
             if (viborita[0].equals(viborita[i]))
@@ -126,9 +132,9 @@ public class Motor implements KeyListener{
         if (viborita[0].x == comida.x && viborita[0].y == comida.y)
         {
             nuevoElemento();
+            score+=(largo)*(Math.log(100/speed));
             while (true)
             {
-                
                 comida.y = (int)(Math.random()*(size.height/psize-1))*psize;
                 comida.x = (int)(Math.random()*(size.width/psize-1))*psize;
                 boolean next=false;
