@@ -12,18 +12,11 @@ import java.awt.event.KeyListener;
  */
 public class Motor implements KeyListener{
     public GameState localPlayer;
-    public Point[] viborita;
-    public int largo;
-    public Point comida;
     public Dimension size;
     public String last;
-    public int speed = 60;
     public int psize;
     public Point cola;
-    public boolean alive;
-    public boolean pause;
     private boolean moved;
-    public int score;
     
     public Motor(Dimension size, int psize)
     {
@@ -34,30 +27,27 @@ public class Motor implements KeyListener{
 
     public void init()
     {
-        this.score = 0;
-        this.alive=true;
-        this.pause=false;
         this.moved=true;
         this.last="der";
-
-        this.localPlayer = new GameState(new Point[1000], 2, new Point(5*psize, 5*psize), 0, 60, true);
+        this.localPlayer = new GameState(new Point[1000], 2, new Point(5*psize, 5*psize), 0, 60, true, false);
         this.localPlayer.viborita[1] = new Point(0, 0);
         this.localPlayer.viborita[0] = new Point(psize,0);
         this.cola = this.localPlayer.viborita[1];
+        
         Thread t;
         t = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(alive)
+                while(localPlayer.alive)
                 {
                     try{
-                        Thread.sleep(speed);
+                        Thread.sleep(localPlayer.speed);
                     } catch(Exception e){}
-                    if (!pause)
+                    if (!localPlayer.pause)
                     {
                         mover();
                         moved = true;
-                        alive = estaViva();
+                        localPlayer.alive = estaViva();
                         hayComida();
                     }
                 }
@@ -69,9 +59,9 @@ public class Motor implements KeyListener{
     
     public boolean estaViva()
     {
-        for (int i=1; i < largo; i++)
+        for (int i=1; i < localPlayer.largo; i++)
         {
-            if (viborita[0].equals(viborita[i]))
+            if (localPlayer.viborita[0].equals(localPlayer.viborita[i]))
             {
                 return false;
             }
@@ -81,43 +71,43 @@ public class Motor implements KeyListener{
 
     public void mover()
     {
-        cola = new Point(viborita[largo-1]);
-        for (int i=0; i < largo-1; i++)
+        cola = new Point(localPlayer.viborita[localPlayer.largo-1]);
+        for (int i=0; i < localPlayer.largo-1; i++)
         {
-            viborita[largo-1-i] = viborita[largo-2-i];
+            localPlayer.viborita[localPlayer.largo-1-i] = localPlayer.viborita[localPlayer.largo-2-i];
         }
         
         if ("der".equals(last))
         {
-            if (viborita[0].x == size.width-psize)
+            if (localPlayer.viborita[0].x == size.width-psize)
             {
-                viborita[0] = new Point(0, viborita[0].y);
+                localPlayer.viborita[0] = new Point(0, localPlayer.viborita[0].y);
             } else {
-                viborita[0] = new Point(viborita[0].x+psize, viborita[0].y);
+                localPlayer.viborita[0] = new Point(localPlayer.viborita[0].x+psize, localPlayer.viborita[0].y);
             }
         }
         if ("izq".equals(last))
         {
-            if (viborita[0].x == 0){
-                viborita[0] = new Point(size.width-psize, viborita[0].y);
+            if (localPlayer.viborita[0].x == 0){
+                localPlayer.viborita[0] = new Point(size.width-psize, localPlayer.viborita[0].y);
             } else {
-                viborita[0] = new Point(viborita[0].x-psize, viborita[0].y);
+                localPlayer.viborita[0] = new Point(localPlayer.viborita[0].x-psize, localPlayer.viborita[0].y);
             }
         }
         if ("aba".equals(last))
         {
-            if (viborita[0].y == size.height-psize){
-                viborita[0] = new Point(viborita[0].x, 0);
+            if (localPlayer.viborita[0].y == size.height-psize){
+                localPlayer.viborita[0] = new Point(localPlayer.viborita[0].x, 0);
             } else {
-                viborita[0] = new Point(viborita[0].x, viborita[0].y+psize);
+                localPlayer.viborita[0] = new Point(localPlayer.viborita[0].x, localPlayer.viborita[0].y+psize);
             }
         }
         if ("arr".equals(last))
         {
-            if (viborita[0].y == 0){
-                viborita[0] = new Point(viborita[0].x, size.height-psize);
+            if (localPlayer.viborita[0].y == 0){
+                localPlayer.viborita[0] = new Point(localPlayer.viborita[0].x, size.height-psize);
             } else {
-                viborita[0] = new Point(viborita[0].x, viborita[0].y-psize);
+                localPlayer.viborita[0] = new Point(localPlayer.viborita[0].x, localPlayer.viborita[0].y-psize);
             }
             
         }
@@ -126,23 +116,23 @@ public class Motor implements KeyListener{
     
     public void nuevoElemento()
     {
-        viborita[largo++] = cola;
+        localPlayer.viborita[localPlayer.largo++] = cola;
     }
     
     public boolean hayComida()
     {
-        if (viborita[0].x == comida.x && viborita[0].y == comida.y)
+        if (localPlayer.viborita[0].x == localPlayer.comida.x && localPlayer.viborita[0].y == localPlayer.comida.y)
         {
             nuevoElemento();
-            score+=largo*Math.pow(1.5, 120.0/speed);
+            localPlayer.score+=localPlayer.largo*Math.pow(1.5, 120.0/localPlayer.speed);
             while (true)
             {
-                comida.y = (int)(Math.random()*(size.height/psize-1))*psize;
-                comida.x = (int)(Math.random()*(size.width/psize-1))*psize;
+                localPlayer.comida.y = (int)(Math.random()*(size.height/psize-1))*psize;
+                localPlayer.comida.x = (int)(Math.random()*(size.width/psize-1))*psize;
                 boolean next=false;
-                for (int i=0; i < largo; i++)
+                for (int i=0; i < localPlayer.largo; i++)
                 {
-                    if (comida.equals(viborita[i]))
+                    if (localPlayer.comida.equals(localPlayer.viborita[i]))
                     {
                         next = true;
                     }
@@ -192,16 +182,16 @@ public class Motor implements KeyListener{
                 }
         }
         if (e.getKeyCode() == KeyEvent.VK_M){
-            if (speed > 20){
-                speed-=10;
+            if (localPlayer.speed > 20){
+                localPlayer.speed-=10;
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_N) {
-            if (speed < 60){
-                speed+=10;
+            if (localPlayer.speed < 60){
+                localPlayer.speed+=10;
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_P) pause = !pause;
+        if (e.getKeyCode() == KeyEvent.VK_P) localPlayer.pause = !localPlayer.pause;
         if (e.getKeyCode() == KeyEvent.VK_Q) System.exit(0);
     }
 

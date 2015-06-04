@@ -56,18 +56,18 @@ public class Panel extends JPanel{
     public void pintarComida(Graphics g)
     {
         g.setColor(Color.red);
-        g.fillRect(m.comida.x, m.comida.y, m.psize, m.psize);
+        g.fillRect(m.localPlayer.comida.x, m.localPlayer.comida.y, m.psize, m.psize);
     }
 
     
     public void pintarViborita(Graphics g)
     {
         g.setColor(Color.green);
-        g.fillRect(m.viborita[0].x, m.viborita[0].y, m.psize, m.psize);
-        for (int i=1; i < m.largo; i++)
+        g.fillRect(m.localPlayer.viborita[0].x, m.localPlayer.viborita[0].y, m.psize, m.psize);
+        for (int i=1; i < m.localPlayer.largo; i++)
         {
             g.setColor(new Color(200-i,255-i*3, 255-i*2));
-            g.fillRect(m.viborita[i].x, m.viborita[i].y, m.psize, m.psize);
+            g.fillRect(m.localPlayer.viborita[i].x, m.localPlayer.viborita[i].y, m.psize, m.psize);
         }
     }
     
@@ -76,7 +76,7 @@ public class Panel extends JPanel{
         g.setColor(Color.gray);
         g.fillRect(0, size.height, size.width, getSize().height);
         g.setColor(Color.white);
-        g.drawString("Duudee, your speeed is: " + (float)(120.0/m.speed) + ", and your score is:" + m.score, 5, getSize().height-5);
+        g.drawString("Duudee, your speeed is: " + (float)(120.0/m.localPlayer.speed) + ", and your score is:" + m.localPlayer.score, 5, getSize().height-5);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class Panel extends JPanel{
         pintarComida(g);
         pintarViborita(g);
         pintarBarra(g);
-        if (!m.alive)
+        if (!m.localPlayer.alive)
         {
             if (dA == null)
             {
@@ -95,7 +95,7 @@ public class Panel extends JPanel{
             }
             dA.pintarMuerte(g);
         }
-        if (m.pause)
+        if (m.localPlayer.pause)
         {
             g.setColor(new Color(70, 100, 100, 200));
             g.fillRect(0, 0, m.size.width, m.size.height);
