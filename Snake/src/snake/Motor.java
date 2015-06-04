@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
  * @author javier
  */
 public class Motor implements KeyListener{
-
+    public GameState localPlayer;
     public Point[] viborita;
     public int largo;
     public Point comida;
@@ -24,6 +24,7 @@ public class Motor implements KeyListener{
     public boolean pause;
     private boolean moved;
     public int score;
+    
     public Motor(Dimension size, int psize)
     {
         this.size = size;
@@ -38,15 +39,13 @@ public class Motor implements KeyListener{
         this.pause=false;
         this.moved=true;
         this.last="der";
-        this.viborita = new Point[1000];
-        this.largo = 2;
-        this.viborita[1] = new Point(0, 0);
-        this.viborita[0] = new Point(psize,0);
-        this.cola = viborita[1];
-        this.comida = new Point(5*psize, 5*psize);
+
+        this.localPlayer = new GameState(new Point[1000], 2, new Point(5*psize, 5*psize), 0, 60, true);
+        this.localPlayer.viborita[1] = new Point(0, 0);
+        this.localPlayer.viborita[0] = new Point(psize,0);
+        this.cola = this.localPlayer.viborita[1];
         Thread t;
         t = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 while(alive)
