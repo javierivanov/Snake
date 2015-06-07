@@ -9,14 +9,14 @@ import javax.swing.JPanel;
 
 
 public class Panel extends JPanel{
-    private final Motor m;
-    public DeadAnimation dA;
-    public Dimension size;
-    public Panel(Motor m, Dimension size)
+    private Core core;
+    private GameState player;
+    private DeadAnimation dA;
+    public Panel(Core core, GameState player)
     {
-        this.m = m;
-        this.size = size;
-        setSize(size.width, size.height+20);
+        this.core = core;
+        this.player = player;
+        setSize(core.size.width, core.size.height+20);
         init();
     }
     
@@ -43,40 +43,40 @@ public class Panel extends JPanel{
         g.setColor(Color.black);
         g.fillRect(0,0 , getSize().width, getSize().height);
         g.setColor(Color.gray);
-        for (int i=m.psize; i < size.width; i+=m.psize)
+        for (int i=core.psize; i < core.size.width; i+=core.psize)
         {
-            g.drawLine(i, 0, i, size.height);
+            g.drawLine(i, 0, i, core.size.height);
         }
-        for (int i=m.psize; i < size.height; i+=m.psize)
+        for (int i=core.psize; i < core.size.height; i+=core.psize)
         {
-            g.drawLine(0, i, size.width, i);
+            g.drawLine(0, i, core.size.width, i);
         }
     }
 
     public void pintarComida(Graphics g)
     {
         g.setColor(Color.red);
-        g.fillRect(m.localPlayer.comida.x, m.localPlayer.comida.y, m.psize, m.psize);
+        g.fillRect(player.comida.x, player.comida.y, core.psize, core.psize);
     }
 
     
     public void pintarViborita(Graphics g)
     {
         g.setColor(Color.green);
-        g.fillRect(m.localPlayer.viborita[0].x, m.localPlayer.viborita[0].y, m.psize, m.psize);
-        for (int i=1; i < m.localPlayer.largo; i++)
+        g.fillRect(player.viborita[0].x, player.viborita[0].y, core.psize, core.psize);
+        for (int i=1; i < player.largo; i++)
         {
             g.setColor(new Color(200-i,255-i*3, 255-i*2));
-            g.fillRect(m.localPlayer.viborita[i].x, m.localPlayer.viborita[i].y, m.psize, m.psize);
+            g.fillRect(player.viborita[i].x, player.viborita[i].y, core.psize, core.psize);
         }
     }
     
     public void pintarBarra(Graphics g)
     {
         g.setColor(Color.gray);
-        g.fillRect(0, size.height, size.width, getSize().height);
+        g.fillRect(0, core.size.height, core.size.width, getSize().height);
         g.setColor(Color.white);
-        g.drawString("Duudee, your speeed is: " + (float)(120.0/m.localPlayer.speed) + ", and your score is:" + m.localPlayer.score, 5, getSize().height-5);
+        g.drawString("Duudee, your speeed is: " + (float)(120.0/player.speed) + ", and your score is:" + player.score, 5, getSize().height-5);
     }
 
     @Override
@@ -87,18 +87,18 @@ public class Panel extends JPanel{
         pintarComida(g);
         pintarViborita(g);
         pintarBarra(g);
-        if (!m.localPlayer.alive)
+        if (!core.player1.alive)
         {
             if (dA == null)
             {
-                dA = new DeadAnimation(getSize(), m);
+                dA = new DeadAnimation(getSize(), core);
             }
             dA.pintarMuerte(g);
         }
-        if (m.localPlayer.pause)
+        if (player.pause)
         {
             g.setColor(new Color(70, 100, 100, 200));
-            g.fillRect(0, 0, m.size.width, m.size.height);
+            g.fillRect(0, 0, core.size.width, core.size.height);
         }
     }
 }
@@ -108,10 +108,11 @@ class DeadAnimation
 {
     public int dead=0;
     public final Dimension dim;
-    public final Motor m2;
-    public DeadAnimation(Dimension size, Motor m)
+    private final Core core;
+    private GameState player;
+    public DeadAnimation(Dimension size, Core core)
     {
-        this.m2 = m;
+        this.core = core;
         dim = size;
         init();
     }
@@ -129,7 +130,7 @@ class DeadAnimation
                     dead++;
                 }
                 JOptionPane.showMessageDialog(null, "Perdiste!!!!");
-                m2.init();
+                System.exit(0);
             }
         });
         t.start();

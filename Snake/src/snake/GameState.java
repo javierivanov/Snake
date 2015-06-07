@@ -28,4 +28,8 @@ public class GameState implements Serializable{
         this.pause = pause;
     }
     
+    public void init()
+    {
+        
+    }
 }
