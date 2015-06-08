@@ -33,9 +33,9 @@ public class Panel extends JPanel{
     
     private void init(){
         try {
-            pasto = ImageIO.read(new File("/Users/javier/NetBeansProjects/Snake/Snake/src/snake/iu.png"));
-            comida = ImageIO.read(new File("/Users/javier/NetBeansProjects/Snake/Snake/src/snake/comida.gif"));
-            arbol = ImageIO.read(new File("/Users/javier/NetBeansProjects/Snake/Snake/src/snake/hole.png"));
+            pasto = ImageIO.read(getClass().getResource("iu.png"));
+            comida = ImageIO.read(getClass().getResource("comida.gif"));
+            arbol = ImageIO.read(getClass().getResource("hole.png"));
         } catch (IOException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
