@@ -21,8 +21,6 @@ public class Ventana extends JFrame{
         addKeyListener(m);
         setLocationRelativeTo(null);
         setUndecorated(true);
-        JOptionPane.showMessageDialog(null, "Para pausar presione (P), para Salir (Q)");
-
         setVisible(true);
     }
 }
