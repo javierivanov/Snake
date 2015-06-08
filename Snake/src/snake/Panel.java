@@ -4,6 +4,14 @@ package snake;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -12,6 +20,9 @@ public class Panel extends JPanel{
     private final Motor m;
     public DeadAnimation dA;
     public Dimension size;
+    public BufferedImage pasto;
+    public BufferedImage comida;
+    public BufferedImage arbol;
     public Panel(Motor m, Dimension size)
     {
         this.m = m;
@@ -21,6 +32,13 @@ public class Panel extends JPanel{
     }
     
     private void init(){
+        try {
+            pasto = ImageIO.read(new File("/Users/javier/NetBeansProjects/Snake/Snake/src/snake/iu.png"));
+            comida = ImageIO.read(new File("/Users/javier/NetBeansProjects/Snake/Snake/src/snake/comida.gif"));
+            arbol = ImageIO.read(new File("/Users/javier/NetBeansProjects/Snake/Snake/src/snake/hole.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -37,26 +55,47 @@ public class Panel extends JPanel{
         t1.start();
     }
     
+    public void pintarMapa(Graphics g)
+    {
+        g.setColor(Color.gray);
+        for (Point mapa : m.mapa) {
+            //g.fillRect(mapa.x, mapa.y, m.psize, m.psize);
+            g.drawImage(arbol, mapa.x, mapa.y, null);
+        }
+    }
 
     public void pintarFondo(Graphics g)
     {
+        /*
         g.setColor(Color.black);
         g.fillRect(0,0 , getSize().width, getSize().height);
         g.setColor(Color.gray);
+
         for (int i=m.psize; i < size.width; i+=m.psize)
         {
-            g.drawLine(i, 0, i, size.height);
+        g.drawLine(i, 0, i, size.height);
         }
         for (int i=m.psize; i < size.height; i+=m.psize)
         {
-            g.drawLine(0, i, size.width, i);
+        g.drawLine(0, i, size.width, i);
+        }
+        */
+
+        //System.out.println(img);
+        for (int i=0; i <= (m.size.width/pasto.getWidth());i++)
+        {
+            for (int j=0; j <= (m.size.height/pasto.getHeight()); j++)
+            {
+                g.drawImage(pasto, i*pasto.getWidth(), j*pasto.getHeight(), null);
+            }
         }
     }
 
     public void pintarComida(Graphics g)
     {
-        g.setColor(Color.red);
-        g.fillRect(m.comida.x, m.comida.y, m.psize, m.psize);
+        //g.setColor(Color.red);
+        //g.fillRect(m.comida.x, m.comida.y, m.psize, m.psize);
+        g.drawImage(comida, m.comida.x, m.comida.y, null);
     }
 
     
@@ -85,6 +124,7 @@ public class Panel extends JPanel{
         super.paintComponent(g);
         pintarFondo(g);
         pintarComida(g);
+        pintarMapa(g);
         pintarViborita(g);
         pintarBarra(g);
         if (!m.alive)

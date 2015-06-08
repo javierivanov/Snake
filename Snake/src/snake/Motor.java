@@ -24,6 +24,7 @@ public class Motor implements KeyListener{
     public boolean pause;
     private boolean moved;
     public int score;
+    public Point[] mapa;
     public Motor(Dimension size, int psize)
     {
         this.size = size;
@@ -44,6 +45,12 @@ public class Motor implements KeyListener{
         this.viborita[0] = new Point(psize,0);
         this.cola = viborita[1];
         this.comida = new Point(5*psize, 5*psize);
+        this.mapa = new Point[30];
+        for (int i=0; i < this.mapa.length; i++)
+        {
+            this.mapa[i] = new Point((int)(Math.random()*(size.width/psize-1))*psize,
+                    (int)(Math.random()*(size.height/psize-1))*psize);
+        }
         Thread t;
         t = new Thread(new Runnable() {
             @Override
@@ -142,6 +149,13 @@ public class Motor implements KeyListener{
                         next = true;
                     }
                 }
+                for (Point m: this.mapa)
+                {
+                    if (m.equals(comida))
+                    {
+                        next = true;
+                    }
+                }
                 if (!next) break;
             }
             return true;
@@ -202,6 +216,5 @@ public class Motor implements KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
-
     }
 }
