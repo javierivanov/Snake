@@ -17,7 +17,7 @@ public class Motor implements KeyListener{
     public Point comida;
     public Dimension size;
     public String last;
-    public int speed = 60;
+    public int speed = 100;
     public int psize;
     public Point cola;
     public boolean alive;
@@ -46,7 +46,6 @@ public class Motor implements KeyListener{
         this.comida = new Point(5*psize, 5*psize);
         Thread t;
         t = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 while(alive)
@@ -67,16 +66,8 @@ public class Motor implements KeyListener{
         t.start();
     }
     
-    
     public boolean estaViva()
     {
-        for (int i=1; i < largo; i++)
-        {
-            if (viborita[0].equals(viborita[i]))
-            {
-                return false;
-            }
-        }
         return true;
     }
 
@@ -90,35 +81,38 @@ public class Motor implements KeyListener{
         
         if ("der".equals(last))
         {
-            if (viborita[0].x == size.width-psize)
-            {
-                viborita[0] = new Point(0, viborita[0].y);
+            viborita[0] = new Point(viborita[0].x+psize, viborita[0].y);
+            if (viborita[0].x == size.width-psize){
+                //viborita[0] = new Point(0, viborita[0].y);
             } else {
-                viborita[0] = new Point(viborita[0].x+psize, viborita[0].y);
+                
             }
         }
         if ("izq".equals(last))
         {
+            viborita[0] = new Point(viborita[0].x-psize, viborita[0].y);
             if (viborita[0].x == 0){
-                viborita[0] = new Point(size.width-psize, viborita[0].y);
+                //viborita[0] = new Point(size.width-psize, viborita[0].y);
             } else {
-                viborita[0] = new Point(viborita[0].x-psize, viborita[0].y);
+                
             }
         }
         if ("aba".equals(last))
         {
+            viborita[0] = new Point(viborita[0].x, viborita[0].y+psize);
             if (viborita[0].y == size.height-psize){
-                viborita[0] = new Point(viborita[0].x, 0);
+                //viborita[0] = new Point(viborita[0].x, 0);
             } else {
-                viborita[0] = new Point(viborita[0].x, viborita[0].y+psize);
+                
             }
         }
         if ("arr".equals(last))
         {
+            viborita[0] = new Point(viborita[0].x, viborita[0].y-psize);
             if (viborita[0].y == 0){
-                viborita[0] = new Point(viborita[0].x, size.height-psize);
+                //viborita[0] = new Point(viborita[0].x, size.height-psize);
             } else {
-                viborita[0] = new Point(viborita[0].x, viborita[0].y-psize);
+                
             }
             
         }
@@ -210,5 +204,4 @@ public class Motor implements KeyListener{
     public void keyReleased(KeyEvent e) {
 
     }
-
 }
