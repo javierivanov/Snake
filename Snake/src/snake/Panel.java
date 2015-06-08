@@ -4,13 +4,14 @@ package snake;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
 public class Panel extends JPanel{
-    private Core core;
-    private GameState player;
+    private final Core core;
+    private final GameState player;
     private DeadAnimation dA;
     public Panel(Core core, GameState player)
     {
@@ -37,6 +38,13 @@ public class Panel extends JPanel{
         t1.start();
     }
     
+    public void pintarMapa(Graphics g)
+    {
+        g.setColor(Color.gray);
+        for (Point mapa : player.mapa) {
+            g.fillRect(mapa.x, mapa.y, core.psize, core.psize);
+        }
+    }
 
     public void pintarFondo(Graphics g)
     {
@@ -84,6 +92,7 @@ public class Panel extends JPanel{
     {
         super.paintComponent(g);
         pintarFondo(g);
+        pintarMapa(g);
         pintarComida(g);
         pintarViborita(g);
         pintarBarra(g);

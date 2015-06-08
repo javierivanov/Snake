@@ -17,8 +17,9 @@ public class GameState implements Serializable{
     public int speed;
     public boolean alive;
     public boolean pause;
+    public Point mapa[];
 
-    public GameState(Point[] viborita, int largo, Point comida, int score, int speed, boolean alive, boolean pause) {
+    public GameState(Point[] viborita, int largo, Point comida, int score, int speed, boolean alive, boolean pause, Point mapa[]) {
         this.viborita = viborita;
         this.largo = largo;
         this.comida = comida;
@@ -26,6 +27,7 @@ public class GameState implements Serializable{
         this.speed = speed;
         this.alive = alive;
         this.pause = pause;
+        this.mapa = mapa;
     }
     
     public void init()

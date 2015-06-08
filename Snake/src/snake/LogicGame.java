@@ -1,6 +1,5 @@
 package snake;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -26,7 +25,14 @@ public class LogicGame implements KeyListener{
     {
         this.moved=true;
         this.last="der";
-        this.core.player1 = new GameState(new Point[1000], 2, new Point(5*core.psize, 5*core.psize), 0, 60, true, false);
+        Point[] mapa = new Point[30];
+        for (int i=0; i < mapa.length; i++)
+        {
+            mapa[i] = new Point((int)(Math.random()*(core.size.width/core.psize-1))*core.psize, 
+                    (int)(Math.random()*(core.size.height/core.psize-1))*core.psize);
+        }
+        
+        this.core.player1 = new GameState(new Point[1000], 2, new Point(5*core.psize, 5*core.psize), 0, 60, true, false, mapa);
         this.core.player1.viborita[1] = new Point(0, 0);
         this.core.player1.viborita[0] = new Point(core.psize,0);
         this.cola = this.core.player1.viborita[1];
@@ -60,6 +66,11 @@ public class LogicGame implements KeyListener{
         {
             if (core.player1.viborita[0].equals(core.player1.viborita[i]))
             {
+                return false;
+            }
+        }
+        for (Point mapa : core.player1.mapa) {
+            if (mapa.equals(core.player1.viborita[0])) {
                 return false;
             }
         }
@@ -131,6 +142,11 @@ public class LogicGame implements KeyListener{
                 {
                     if (core.player1.comida.equals(core.player1.viborita[i]))
                     {
+                        next = true;
+                    }
+                }
+                for (Point mapa : core.player1.mapa) {
+                    if (core.player1.comida.equals(mapa)) {
                         next = true;
                     }
                 }
