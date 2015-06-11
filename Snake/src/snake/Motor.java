@@ -45,12 +45,15 @@ public class Motor implements KeyListener{
         this.viborita[0] = new Point(psize,0);
         this.cola = viborita[1];
         this.comida = new Point(5*psize, 5*psize);
-        this.mapa = new Point[30];
+        
+        this.mapa = new Point[20];
+        
         for (int i=0; i < this.mapa.length; i++)
         {
             this.mapa[i] = new Point((int)(Math.random()*(size.width/psize-1))*psize,
                     (int)(Math.random()*(size.height/psize-1))*psize);
         }
+        
         Thread t;
         t = new Thread(new Runnable() {
             @Override
@@ -73,8 +76,29 @@ public class Motor implements KeyListener{
         t.start();
     }
     
+    
     public boolean estaViva()
     {
+      if (viborita[0].x < 0 || viborita[0].y < 0)
+        {
+            return false;
+        }
+        
+        for (int i=1; i < largo; i++)
+        {
+            if (viborita[0].x == viborita[i].x && viborita[0].y == viborita[i].y)
+            {
+                return false;
+            }
+        }
+        
+        for (int i=0; i < mapa.length; i++)
+        {
+            if (viborita[0].x == mapa[i].x && viborita[0].y == mapa[i].y)
+            {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -88,40 +112,35 @@ public class Motor implements KeyListener{
         
         if ("der".equals(last))
         {
-            viborita[0] = new Point(viborita[0].x+psize, viborita[0].y);
             if (viborita[0].x == size.width-psize){
-                //viborita[0] = new Point(0, viborita[0].y);
+                viborita[0] = new Point(0, viborita[0].y);
             } else {
-                
+                viborita[0] = new Point(viborita[0].x+psize, viborita[0].y);
             }
         }
         if ("izq".equals(last))
         {
-            viborita[0] = new Point(viborita[0].x-psize, viborita[0].y);
             if (viborita[0].x == 0){
-                //viborita[0] = new Point(size.width-psize, viborita[0].y);
+                viborita[0] = new Point(size.width-psize, viborita[0].y);
             } else {
-                
+                viborita[0] = new Point(viborita[0].x-psize, viborita[0].y);
             }
         }
         if ("aba".equals(last))
         {
-            viborita[0] = new Point(viborita[0].x, viborita[0].y+psize);
             if (viborita[0].y == size.height-psize){
-                //viborita[0] = new Point(viborita[0].x, 0);
+                viborita[0] = new Point(viborita[0].x, 0);
             } else {
-                
+                viborita[0] = new Point(viborita[0].x, viborita[0].y+psize);
             }
         }
         if ("arr".equals(last))
         {
-            viborita[0] = new Point(viborita[0].x, viborita[0].y-psize);
             if (viborita[0].y == 0){
-                //viborita[0] = new Point(viborita[0].x, size.height-psize);
+                viborita[0] = new Point(viborita[0].x, size.height-psize);
             } else {
-                
+                viborita[0] = new Point(viborita[0].x, viborita[0].y-psize);
             }
-            
         }
         
     }
