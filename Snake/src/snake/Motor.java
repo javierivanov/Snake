@@ -46,13 +46,8 @@ public class Motor implements KeyListener{
         this.cola = viborita[1];
         this.comida = new Point(5*psize, 5*psize);
         
-        this.mapa = new Point[20];
-        
-        for (int i=0; i < this.mapa.length; i++)
-        {
-            this.mapa[i] = new Point((int)(Math.random()*(size.width/psize-1))*psize,
-                    (int)(Math.random()*(size.height/psize-1))*psize);
-        }
+        this.mapa = generarMapa();
+
         
         Thread t;
         t = new Thread(new Runnable() {
@@ -76,6 +71,28 @@ public class Motor implements KeyListener{
         t.start();
     }
     
+    public Point[] generarMapa() {
+        Point[] m = new Point[20];
+        m[0] = new Point(20,20);
+        m[1] = new Point(20,40);
+        m[2] = new Point(20,60);
+        m[3] = new Point(20,80);
+        m[4] = new Point(20,100);
+        
+        m[5] = new Point(60,20);
+        m[6] = new Point(60,40);
+        m[7] = new Point(60,60);
+        m[8] = new Point(60,80);
+        m[9] = new Point(60,100);
+        
+        for (int i=10; i < m.length;i++)
+        {
+            int x = (int)(Math.random()*(size.width/psize))*psize;
+            int y = (int)(Math.random()*(size.height/psize))*psize;
+            m[i] = new Point(x,y);
+        }
+        return m;
+    }
     
     public boolean estaViva()
     {
@@ -158,8 +175,8 @@ public class Motor implements KeyListener{
             score+=largo*Math.pow(1.5, 120.0/speed);
             while (true)
             {
-                comida.y = (int)(Math.random()*(size.height/psize-1))*psize;
-                comida.x = (int)(Math.random()*(size.width/psize-1))*psize;
+                comida.y = (int)(Math.random()*(size.height/psize))*psize;
+                comida.x = (int)(Math.random()*(size.width/psize))*psize;
                 boolean next=false;
                 for (int i=0; i < largo; i++)
                 {
