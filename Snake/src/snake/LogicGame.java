@@ -25,7 +25,7 @@ public class LogicGame implements KeyListener{
     {
         this.moved=true;
         this.last="der";
-        Point[] mapa = new Point[30];
+        Point[] mapa = new Point[20];
         for (int i=0; i < mapa.length; i++)
         {
             mapa[i] = new Point((int)(Math.random()*(core.size.width/core.psize-1))*core.psize, 
