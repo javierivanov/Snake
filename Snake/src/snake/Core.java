@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * @author javier
  */
 public class Core {
-    public LogicGame lg;
+    public GameLogic lg;
     public GameState player1, player2;
     public Panel p1, p2;
     public Window window;
@@ -21,7 +21,7 @@ public class Core {
         JOptionPane.showMessageDialog(null, "Para pausar presione (P), para Salir (Q)");
         this.size = dim;
         this.psize = psize;
-        lg = new LogicGame(this);
+        lg = new GameLogic(this);
         window = new Window(this);
         window.setVisible(true);
     }

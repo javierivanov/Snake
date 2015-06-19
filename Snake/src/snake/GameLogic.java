@@ -9,13 +9,13 @@ import java.awt.event.KeyListener;
  *
  * @author javier
  */
-public class LogicGame implements KeyListener{
+public class GameLogic implements KeyListener{
     private String last;
     private Point cola;
     private boolean moved;
     private final Core core;
     
-    public LogicGame(Core core)
+    public GameLogic(Core core)
     {
         this.core = core;
         init();
