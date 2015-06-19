@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
  */
 public class Core {
     public GameLogic lg;
+    public Agent agent;
     public GameState player1, player2;
     public Panel p1, p2;
     public Window window;
@@ -22,6 +23,7 @@ public class Core {
         this.size = dim;
         this.psize = psize;
         lg = new GameLogic(this);
+        agent = new Agent(this);
         window = new Window(this);
         window.setVisible(true);
     }

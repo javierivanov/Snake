@@ -20,7 +20,7 @@ public class Window extends JFrame{
         setSize(core.size.width*2, (core.size.height+20));
         setLayout(new GridLayout(1,2));
         add(new Panel(core, core.player1));
-        add(new Panel(core, core.player1));
+        add(new Panel(core, core.player2));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         addKeyListener(core.lg);
         setLocationRelativeTo(null);
